@@ -1,0 +1,23 @@
+$ dotnet test 
+  All projects are up-to-date for restore.
+[xUnit.net 00:00:00.15]     Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 799, limit: 1000, expected: Normal) [FAIL]
+[xUnit.net 00:00:00.16]     Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 800, limit: 1000, expected: Warning) [FAIL]
+[xUnit.net 00:00:00.16]     Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 1000, limit: 1000, expected: Warning) [FAIL]
+[xUnit.net 00:00:00.16]     Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 0, limit: 1000, expected: Normal) [FAIL]
+[xUnit.net 00:00:00.16]     Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 1001, limit: 1000, expected: Exceeded) [FAIL]
+  Failed Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 799, limit: 1000, expected: Normal) [2 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 800, limit: 1000, expected: Warning) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 1000, limit: 1000, expected: Warning) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 0, limit: 1000, expected: Normal) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.GetStatus_UsageAroundBoundaries_ReturnsExpectedStatus(used: 1001, limit: 1000, expected: Exceeded) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+Failed!  - Failed:     5, Passed:     1, Skipped:     0, Total:     6, Duration: 15 ms - Diary.Tests.dll (net8.0)
