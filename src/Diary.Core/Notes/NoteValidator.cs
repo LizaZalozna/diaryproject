@@ -6,6 +6,9 @@ public sealed class NoteValidator
     public const int TitleMaxLength = 100;
     public const int TextMaxLength = 5000;
 
+    /// <summary>Категорії, які пропонує форма створення нотатки.</summary>
+    public static readonly IReadOnlyList<string> Categories = ["Personal", "Study", "Work", "Ideas"];
+
     /// <summary>Повертає назву без пробілів на краях.</summary>
     public string ValidateTitle(string? title)
     {
@@ -26,6 +29,13 @@ public sealed class NoteValidator
         if (value.Length > TextMaxLength)
             throw new ValidationException($"Текст має містити не більше {TextMaxLength} символів");
         return value;
+    }
+
+    /// <summary>Категорія обов'язкова й має бути зі списку; повертає назву у написанні зі списку.</summary>
+    public string ValidateCategory(string? category)
+    {
+        var match = Categories.FirstOrDefault(c => string.Equals(c, category?.Trim(), StringComparison.OrdinalIgnoreCase));
+        return match ?? throw new ValidationException("Оберіть категорію");
     }
 
     /// <summary>Групові нотатки доступні лише з Premium.</summary>

@@ -84,6 +84,27 @@ public class NoteValidatorTests
     }
 
     [Theory]
+    [InlineData("Study", "Study")]
+    [InlineData(" work ", "Work")]
+    public void ValidateCategory_CategoryFromList_ReturnsCanonicalName(string category, string expected)
+    {
+        var result = _validator.ValidateCategory(category);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("Shopping")]
+    public void ValidateCategory_MissingOrUnknown_ThrowsWithMessage(string? category)
+    {
+        var ex = Assert.Throws<ValidationException>(() => _validator.ValidateCategory(category));
+
+        Assert.Equal("Оберіть категорію", ex.Message);
+    }
+
+    [Theory]
     [InlineData(AccessLevel.Private, false)]
     [InlineData(AccessLevel.Public, false)]
     [InlineData(AccessLevel.Group, true)]

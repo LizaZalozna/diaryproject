@@ -7,7 +7,7 @@
 
 | Компонент | Призначення | Історія Jira |
 |---|---|---|
-| `NoteValidator` | назва і текст нотатки, рівень доступу | SCRUM-7, SCRUM-24 |
+| `NoteValidator` | назва, текст і категорія нотатки, рівень доступу | SCRUM-7, SCRUM-24 |
 | `CredentialsValidator` | пароль і його повтор, e-mail, код підтвердження | SCRUM-14, SCRUM-17 |
 | `NoteRepository` | збереження, редагування, видалення, список нотаток (SQLite) | SCRUM-7, SCRUM-11, SCRUM-13, SCRUM-19 |
 | `StorageLimit`, `StorageService` | ліміт сховища медіа і сповіщення через `INotifier` | SCRUM-39 |
