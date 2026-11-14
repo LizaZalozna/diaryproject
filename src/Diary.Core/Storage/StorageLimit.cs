@@ -5,6 +5,10 @@ public static class StorageLimit
 {
     public static StorageStatus GetStatus(long usedBytes, long limitBytes)
     {
-        throw new NotImplementedException();
+        if (usedBytes > limitBytes)
+            return StorageStatus.Exceeded;
+        if (usedBytes * 100 >= limitBytes * 80)
+            return StorageStatus.Warning;
+        return StorageStatus.Normal;
     }
 }
