@@ -45,11 +45,13 @@ public class NoteValidatorTests
     }
 
     [Fact]
-    public void ValidateTitle_TitleLongerThanMax_Throws()
+    public void ValidateTitle_TitleLongerThanMax_ThrowsWithMessage()
     {
         var title = new string('а', NoteValidator.TitleMaxLength + 1);
 
-        Assert.Throws<ValidationException>(() => _validator.ValidateTitle(title));
+        var ex = Assert.Throws<ValidationException>(() => _validator.ValidateTitle(title));
+
+        Assert.Equal("Назва має містити не більше 100 символів", ex.Message);
     }
 
     [Theory]
@@ -101,8 +103,10 @@ public class NoteValidatorTests
     }
 
     [Fact]
-    public void ValidateAccess_UndefinedValue_Throws()
+    public void ValidateAccess_UndefinedValue_ThrowsWithMessage()
     {
-        Assert.Throws<ValidationException>(() => _validator.ValidateAccess((AccessLevel)42, isPremium: true));
+        var ex = Assert.Throws<ValidationException>(() => _validator.ValidateAccess((AccessLevel)42, isPremium: true));
+
+        Assert.Equal("Оберіть тип доступу", ex.Message);
     }
 }

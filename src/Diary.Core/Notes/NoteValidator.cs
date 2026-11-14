@@ -13,7 +13,7 @@ public sealed class NoteValidator
         if (trimmed.Length == 0)
             throw new ValidationException("Введіть назву нотатки");
         if (trimmed.Length > TitleMaxLength)
-            throw new ValidationException($"Назва не може бути довшою за {TitleMaxLength} символів");
+            throw new ValidationException($"Назва має містити не більше {TitleMaxLength} символів");
         return trimmed;
     }
 
@@ -24,7 +24,7 @@ public sealed class NoteValidator
             throw new ValidationException("Введіть текст нотатки");
         var value = text;
         if (value.Length > TextMaxLength)
-            throw new ValidationException($"Текст не може бути довшим за {TextMaxLength} символів");
+            throw new ValidationException($"Текст має містити не більше {TextMaxLength} символів");
         return value;
     }
 
@@ -32,7 +32,7 @@ public sealed class NoteValidator
     public void ValidateAccess(AccessLevel access, bool isPremium)
     {
         if (!Enum.IsDefined(access))
-            throw new ValidationException("Невідомий рівень доступу");
+            throw new ValidationException("Оберіть тип доступу");
         if (access == AccessLevel.Group && !isPremium)
             throw new ValidationException("Групові нотатки доступні лише з Premium");
     }

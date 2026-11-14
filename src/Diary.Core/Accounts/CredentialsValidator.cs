@@ -12,11 +12,11 @@ public sealed partial class CredentialsValidator
     public void ValidatePassword(string? password)
     {
         if (string.IsNullOrEmpty(password) || password.Length < PasswordMinLength)
-            throw new ValidationException($"Пароль має містити щонайменше {PasswordMinLength} символів");
+            throw new ValidationException($"Пароль має містити мінімум {PasswordMinLength} символів");
         if (password.Length > PasswordMaxLength)
-            throw new ValidationException($"Пароль не може бути довшим за {PasswordMaxLength} символи");
+            throw new ValidationException($"Пароль має містити не більше {PasswordMaxLength} символів");
         if (!password.Any(char.IsLetter) || !password.Any(char.IsDigit))
-            throw new ValidationException("Пароль має містити літери та цифри");
+            throw new ValidationException("Пароль має містити літеру і цифру");
     }
 
     public void ValidateEmail(string? email)

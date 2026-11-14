@@ -8,7 +8,7 @@ public class CredentialsValidatorTests
     private readonly CredentialsValidator _validator = new();
 
     [Theory]
-    [InlineData("abcdefg1")]                                                          // 8 символів — нижня межа
+    [InlineData("Qwerty12")]                                                          // 8 символів — нижня межа
     [InlineData("пароль2026")]                                                        // кирилиця
     [InlineData("a1234567890123456789012345678901234567890123456789012345678901bc")] // 64 символи — верхня межа
     public void ValidatePassword_ValidPassword_DoesNotThrow(string password)
@@ -19,14 +19,17 @@ public class CredentialsValidatorTests
     }
 
     [Theory]
-    [InlineData(null)]
-    [InlineData("abcdef1")]                                                            // 7 символів
-    [InlineData("a12345678901234567890123456789012345678901234567890123456789012bc")] // 65 символів
-    [InlineData("onlyletters")]
-    [InlineData("1234567890")]
-    public void ValidatePassword_InvalidPassword_Throws(string? password)
+    [InlineData(null, "Пароль має містити мінімум 8 символів")]
+    [InlineData("", "Пароль має містити мінімум 8 символів")]
+    [InlineData("Qwerty1", "Пароль має містити мінімум 8 символів")]                                                              // 7 символів
+    [InlineData("a12345678901234567890123456789012345678901234567890123456789012bc", "Пароль має містити не більше 64 символів")] // 65 символів
+    [InlineData("abcdefgh", "Пароль має містити літеру і цифру")]
+    [InlineData("12345678", "Пароль має містити літеру і цифру")]
+    public void ValidatePassword_InvalidPassword_ThrowsWithMessage(string? password, string expectedMessage)
     {
-        Assert.Throws<ValidationException>(() => _validator.ValidatePassword(password));
+        var ex = Assert.Throws<ValidationException>(() => _validator.ValidatePassword(password));
+
+        Assert.Equal(expectedMessage, ex.Message);
     }
 
     [Theory]
