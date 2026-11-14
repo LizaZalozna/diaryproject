@@ -15,4 +15,10 @@ public static class StorageLimit
             return StorageStatus.Warning;
         return StorageStatus.Normal;
     }
+
+    /// <summary>Чи можна завантажити файл, не перевищивши ліміт.</summary>
+    public static bool CanUpload(long usedBytes, long fileBytes, long limitBytes)
+    {
+        throw new NotImplementedException();
+    }
 }

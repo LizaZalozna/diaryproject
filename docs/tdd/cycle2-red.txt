@@ -1,0 +1,45 @@
+$ dotnet test 
+  All projects are up-to-date for restore.
+[xUnit.net 00:00:00.45]     Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 900, file: 99, limit: 1000, expected: True) [FAIL]
+[xUnit.net 00:00:00.46]     Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 900, file: 100, limit: 1000, expected: True) [FAIL]
+[xUnit.net 00:00:00.46]     Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 1000, file: 1, limit: 1000, expected: False) [FAIL]
+[xUnit.net 00:00:00.47]     Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 900, file: 101, limit: 1000, expected: False) [FAIL]
+[xUnit.net 00:00:00.47]     Diary.Tests.StorageLimitTests.GetStatus_NonPositiveLimit_ThrowsValidationException(limit: 0) [FAIL]
+[xUnit.net 00:00:00.47]     Diary.Tests.StorageLimitTests.GetStatus_NonPositiveLimit_ThrowsValidationException(limit: -1) [FAIL]
+  Failed Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 900, file: 99, limit: 1000, expected: True) [4 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 900, file: 100, limit: 1000, expected: True) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 1000, file: 1, limit: 1000, expected: False) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.CanUpload_FileAroundRemainingSpace_ReturnsExpected(used: 900, file: 101, limit: 1000, expected: False) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Failed Diary.Tests.StorageLimitTests.GetStatus_NonPositiveLimit_ThrowsValidationException(limit: 0) [19 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(Diary.Core.ValidationException)
+  Failed Diary.Tests.StorageLimitTests.GetStatus_NonPositiveLimit_ThrowsValidationException(limit: -1) [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(Diary.Core.ValidationException)
+[xUnit.net 00:00:00.56]     Diary.Tests.StorageLimitTests.CanUpload_NonPositiveFileSize_ThrowsValidationException(file: -5) [FAIL]
+[xUnit.net 00:00:00.57]     Diary.Tests.StorageLimitTests.CanUpload_NonPositiveFileSize_ThrowsValidationException(file: 0) [FAIL]
+  Failed Diary.Tests.StorageLimitTests.CanUpload_NonPositiveFileSize_ThrowsValidationException(file: -5) [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(Diary.Core.ValidationException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+----- Inner Stack Trace -----
+  Failed Diary.Tests.StorageLimitTests.CanUpload_NonPositiveFileSize_ThrowsValidationException(file: 0) [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(Diary.Core.ValidationException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+----- Inner Stack Trace -----
+Failed!  - Failed:     8, Passed:     6, Skipped:     0, Total:    14, Duration: 143 ms - Diary.Tests.dll (net8.0)
