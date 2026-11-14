@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Diary.Core.Accounts;
 
-/// <summary>Валідація даних реєстрації та підтвердження (SCRUM-14).</summary>
+/// <summary>Валідація даних реєстрації та підтвердження (SCRUM-14, SCRUM-17).</summary>
 public sealed partial class CredentialsValidator
 {
     public const int PasswordMinLength = 8;
@@ -17,6 +17,13 @@ public sealed partial class CredentialsValidator
             throw new ValidationException($"Пароль має містити не більше {PasswordMaxLength} символів");
         if (!password.Any(char.IsLetter) || !password.Any(char.IsDigit))
             throw new ValidationException("Пароль має містити літеру і цифру");
+    }
+
+    /// <summary>Повтор пароля на формі створення нового пароля (SCRUM-17).</summary>
+    public void ValidatePasswordConfirmation(string? password, string? confirmation)
+    {
+        if (!string.Equals(password, confirmation, StringComparison.Ordinal))
+            throw new ValidationException("Паролі не збігаються");
     }
 
     public void ValidateEmail(string? email)

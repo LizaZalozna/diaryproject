@@ -32,6 +32,25 @@ public class CredentialsValidatorTests
         Assert.Equal(expectedMessage, ex.Message);
     }
 
+    [Fact]
+    public void ValidatePasswordConfirmation_SameValues_DoesNotThrow()
+    {
+        var ex = Record.Exception(() => _validator.ValidatePasswordConfirmation("Qwerty123", "Qwerty123"));
+
+        Assert.Null(ex);
+    }
+
+    [Theory]
+    [InlineData("Qwerty123", "Qwerty124")]
+    [InlineData("Qwerty123", "qwerty123")] // регістр враховується
+    [InlineData("Qwerty123", null)]
+    public void ValidatePasswordConfirmation_DifferentValues_ThrowsWithMessage(string? password, string? confirmation)
+    {
+        var ex = Assert.Throws<ValidationException>(() => _validator.ValidatePasswordConfirmation(password, confirmation));
+
+        Assert.Equal("Паролі не збігаються", ex.Message);
+    }
+
     [Theory]
     [InlineData("user@example.com")]
     [InlineData("  student@univ.edu.ua  ")]
