@@ -9,8 +9,7 @@ public static class StorageLimit
     /// <summary>Normal (&lt; 80 %), Warning (від 80 % до 100 % включно), Exceeded (&gt; 100 %).</summary>
     public static StorageStatus GetStatus(long usedBytes, long limitBytes)
     {
-        if (limitBytes <= 0)
-            throw new ValidationException("Ліміт сховища має бути більшим за нуль");
+        EnsurePositiveLimit(limitBytes);
         if (usedBytes > limitBytes)
             return StorageStatus.Exceeded;
         if (usedBytes * 100 >= limitBytes * WarningPercent)
@@ -21,10 +20,15 @@ public static class StorageLimit
     /// <summary>Чи можна завантажити файл, не перевищивши ліміт.</summary>
     public static bool CanUpload(long usedBytes, long fileBytes, long limitBytes)
     {
-        if (limitBytes <= 0)
-            throw new ValidationException("Ліміт сховища має бути більшим за нуль");
+        EnsurePositiveLimit(limitBytes);
         if (fileBytes <= 0)
             throw new ValidationException("Розмір файлу має бути більшим за нуль");
         return usedBytes + fileBytes <= limitBytes;
+    }
+
+    private static void EnsurePositiveLimit(long limitBytes)
+    {
+        if (limitBytes <= 0)
+            throw new ValidationException("Ліміт сховища має бути більшим за нуль");
     }
 }
