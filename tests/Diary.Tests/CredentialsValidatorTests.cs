@@ -1,0 +1,72 @@
+using Diary.Core;
+using Diary.Core.Accounts;
+
+namespace Diary.Tests;
+
+public class CredentialsValidatorTests
+{
+    private readonly CredentialsValidator _validator = new();
+
+    [Theory]
+    [InlineData("abcdefg1")]                                                          // 8 символів — нижня межа
+    [InlineData("пароль2026")]                                                        // кирилиця
+    [InlineData("a1234567890123456789012345678901234567890123456789012345678901bc")] // 64 символи — верхня межа
+    public void ValidatePassword_ValidPassword_DoesNotThrow(string password)
+    {
+        var ex = Record.Exception(() => _validator.ValidatePassword(password));
+
+        Assert.Null(ex);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("abcdef1")]                                                            // 7 символів
+    [InlineData("a12345678901234567890123456789012345678901234567890123456789012bc")] // 65 символів
+    [InlineData("onlyletters")]
+    [InlineData("1234567890")]
+    public void ValidatePassword_InvalidPassword_Throws(string? password)
+    {
+        Assert.Throws<ValidationException>(() => _validator.ValidatePassword(password));
+    }
+
+    [Theory]
+    [InlineData("user@example.com")]
+    [InlineData("  student@univ.edu.ua  ")]
+    public void ValidateEmail_ValidEmail_DoesNotThrow(string email)
+    {
+        var ex = Record.Exception(() => _validator.ValidateEmail(email));
+
+        Assert.Null(ex);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("user@")]
+    [InlineData("user.example.com")]
+    [InlineData("us er@example.com")]
+    public void ValidateEmail_InvalidEmail_Throws(string email)
+    {
+        Assert.Throws<ValidationException>(() => _validator.ValidateEmail(email));
+    }
+
+    [Fact]
+    public void ValidateConfirmationCode_SixDigits_DoesNotThrow()
+    {
+        var ex = Record.Exception(() => _validator.ValidateConfirmationCode("048213"));
+
+        Assert.Null(ex);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("12345")]
+    [InlineData("1234567")]
+    [InlineData("12a456")]
+    [InlineData("１２３４５６")] // повноширинні цифри — не ASCII
+    public void ValidateConfirmationCode_InvalidCode_ThrowsWithMessage(string? code)
+    {
+        var ex = Assert.Throws<ValidationException>(() => _validator.ValidateConfirmationCode(code));
+
+        Assert.Equal("Код має складатися з 6 цифр", ex.Message);
+    }
+}

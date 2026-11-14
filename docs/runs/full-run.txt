@@ -1,0 +1,2 @@
+$ dotnet test 
+Passed!  - Failed:     0, Passed:    54, Skipped:     0, Total:    54, Duration: 50 ms - Diary.Tests.dll (net8.0)
