@@ -53,13 +53,14 @@ public sealed class NoteRepository
         return cmd.ExecuteNonQuery() == 1;
     }
 
-    /// <summary>Видаляє нотатку; false, якщо нотатки немає.</summary>
-    public bool Delete(long id)
+    /// <summary>Видаляє нотатку (SCRUM-19); якщо нотатки немає — NotFoundException.</summary>
+    public void Delete(long id)
     {
         using var cmd = _connection.CreateCommand();
         cmd.CommandText = "DELETE FROM notes WHERE id = @id";
         AddParameter(cmd, "@id", id);
-        return cmd.ExecuteNonQuery() == 1;
+        if (cmd.ExecuteNonQuery() == 0)
+            throw new NotFoundException($"Нотатку з id {id} не знайдено");
     }
 
     public Note? GetById(long id)
